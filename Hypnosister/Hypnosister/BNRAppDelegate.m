@@ -7,6 +7,7 @@
 //
 
 #import "BNRAppDelegate.h"
+#import "BNRHypnosisterView.h"
 
 @implementation BNRAppDelegate
 
@@ -14,6 +15,31 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+#if 1
+    CGRect screenRect = self.window.bounds;
+    CGRect bigRect = screenRect;
+    //bigRect.size.height *= 2.0;
+    bigRect.size.width *= 2.0;
+    
+    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:screenRect];
+    [scrollView setPagingEnabled:YES];
+    [self.window addSubview:scrollView];
+    
+    BNRHypnosisterView *hypnosisterView = [[BNRHypnosisterView alloc]initWithFrame:screenRect];
+    [scrollView addSubview:hypnosisterView];
+    screenRect.origin.x += screenRect.size.width;
+    
+    BNRHypnosisterView *hypnosisterView2 = [[BNRHypnosisterView alloc]initWithFrame:screenRect];
+    [scrollView addSubview:hypnosisterView2];
+    scrollView.contentSize = bigRect.size;
+#else
+    CGRect fistFrame = self.window.bounds;//CGRectMake(160, 240, 100, 150);
+    BNRHypnosisterView *firstView = [[BNRHypnosisterView alloc] initWithFrame:fistFrame];
+   // firstView.backgroundColor = [UIColor redColor];
+    [self.window addSubview:firstView];
+#endif
+    
+   
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
